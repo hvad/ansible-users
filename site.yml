@@ -1,0 +1,9 @@
+---
+# This playbook manage user account.
+
+- name: All
+  hosts: all
+  remote_user: root
+
+  roles:
+    - users

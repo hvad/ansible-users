@@ -1,0 +1,2 @@
+[all]
+server ansible_port=32771 ansible_host=127.0.0.1

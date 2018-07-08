@@ -1,0 +1,27 @@
+---
+# Example:
+#groups_to_create:
+#  - name: developers
+#    gid: 10000
+#groups_to_delete:
+#  - name: developers
+#users:
+#  - username: foo
+#    name: Foo Barrington
+#    groups: ['wheel','developers']
+#    uid: 1001
+#    home: /home/foo
+#    profile: |
+#      alias ll='ls -lah'
+#    ssh_authorized_keys:
+#      - "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAn3ENhh1aS0kZmj6IkTH8QgQ9OxLHsew2Rwhpzo+4bivF0LDmdkAtJV0b/LcgO+YPUmCvUDur1V8d4cnsD9FVTzXGYlQlI/85QtMHgRr+hRRG5huQKk58LdNqwZcD5RT9/NEA1l4z31lb/YwwRUFilYT6WfY3HHsrG09TkAPUi2++afFfhQNlrzUjA3Q4Eaz8GmEDqVJqM4XgKIHqKS2eIaoC2HCWys97QLmNerOcAb7i2vymvv1dNvlJJjjLhHVBV3m8/v5XeR0sfksOGxvDeHh+/AzqFYEcFtt157z8Sg6J7wYyvwAD37wP1n2F1n7HZvnFnwNvmrAGWujCsCTB4w== david@rakis"
+#      - "ssh-rsa AAAAA.... foo@machine"
+#      - "ssh-rsa AAAAB.... foo2@machine"
+#    ssh_priv_key: |
+#      -----BEGIN RSA PRIVATE KEY-----
+#      Key Content <...>
+#      -----END RSA PRIVATE KEY-----
+#users_deleted:
+#  - username: foo
+#    name: Foo Barrington
+#    uid: 1001
