@@ -5,7 +5,7 @@
 
 - name: Per-user group creation
   group: name="{{item.username}}"
-         gid="{{item.gid | default(item.uid) | default(omit)}}"
+         gid="{{item.gid | default(omit)}}"
   with_items: "{{users}}"
   when: "'group' not in item and users_create_per_user_group"
 
@@ -18,7 +18,6 @@
     shell: "{{item.shell if item.shell is defined else users_default_shell}}"
     password: "{{item.password if item.password is defined else '!'}}"
     comment: "{{item.name if item.name is defined else ''}}"
-    uid: "{{item.uid}}"
     home: "{{ item.home | default('/home/' + item.username) }}"
     createhome: "{{'yes' if users_create_homedirs else 'no'}}"
     generate_ssh_key: "{{ item.generate_ssh_key | default(omit) }}"
@@ -33,17 +32,6 @@
   with_subelements:
     - "{{users}}"
     - ssh_authorized_keys
-
-- name: Setup user profiles
-  blockinfile:
-    block: "{{item.profile}}"
-    dest: "{{ item.home | default('/home/' + item.username) }}/.profile"
-    owner: "{{item.username}}"
-    group: "{{item.group | default(item.username if users_create_per_user_group else users_group)}}"
-    mode: 0644
-    create: true
-  when: users_create_homedirs and item.profile is defined
-  with_items: "{{users}}"
 
 - name: Deleted user
   user: name="{{item.username}}" state=absent
