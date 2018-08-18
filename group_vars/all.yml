@@ -15,9 +15,5 @@
 #    ssh_authorized_keys:
 #      - "ssh-rsa AAAAA.... foo@machine"
 #      - "ssh-rsa AAAAB.... foo2@machine"
-#    ssh_priv_key: |
-#      -----BEGIN RSA PRIVATE KEY-----
-#      Key Content <...>
-#      -----END RSA PRIVATE KEY-----
 #users_deleted:
 #  - username: admin
