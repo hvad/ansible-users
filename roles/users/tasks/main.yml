@@ -1,12 +1,15 @@
 ---
 - name: Creating groups
-  group: name="{{item.name}}" gid="{{item.gid | default(omit)}}"
-  with_items: "{{groups_to_create}}"
+  group: 
+    name: "{{item.name}}" 
+    gid: "{{item.gid | default(omit)}}"
+  loop: "{{groups_to_create}}"
 
 - name: Per-user group creation
-  group: name="{{item.username}}"
-         gid="{{item.gid | default(omit)}}"
-  with_items: "{{users}}"
+  group: 
+    name: "{{item.username}}"
+    gid: "{{item.gid | default(omit)}}"
+  loop: "{{users}}"
   when: "'group' not in item and users_create_per_user_group"
 
 - name: Add user
@@ -22,26 +25,30 @@
     createhome: "{{'yes' if users_create_homedirs else 'no'}}"
     generate_ssh_key: "{{ item.generate_ssh_key | default(omit) }}"
     update_password: "{{item.update_password | default(omit)}}"
-  with_items: "{{users}}"  
+  loop: "{{users}}"  
 
 - name: SSH authorized keys
   authorized_key:
     user: "{{item.0.username}}"
     key: "{{item.1}}"
     path: "{{ item.0.home | default('/home/' + item.0.username) }}/.ssh/authorized_keys"
-  with_subelements:
-    - "{{users}}"
-    - ssh_authorized_keys
+  loop: "{{ users | subelements('ssh_authorized_keys') }}"
 
 - name: Deleted user
-  user: name="{{item.username}}" state=absent
-  with_items: "{{users_deleted}}"  
+  user: 
+    name: "{{item.username}}" 
+    state: absent
+  loop: "{{users_deleted}}"  
 
 - name: Deleted per-user group removal
-  group: name="{{item.username}}" state=absent
-  with_items: "{{users_deleted}}"
+  group: 
+    name: "{{item.username}}" 
+    state: absent
+  loop: "{{users_deleted}}"
   when: users_create_per_user_group
 
 - name: Delete groups
-  group: name="{{item.name}}" state=absent
-  with_items: "{{groups_to_delete}}"
+  group: 
+   name: "{{item.name}}" 
+   state: absent
+  loop: "{{groups_to_delete}}"
