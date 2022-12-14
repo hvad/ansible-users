@@ -5,8 +5,12 @@
 
 The inventory file 'hosts' defines the nodes in which the stacks should be configured.
 
-    [all]
-    fedora ansible_host=192.168.1.60
+        [all]
+        fedora ansible_port=22 ansible_host=192.168.1.60
+
+The stack can be checked using the following command:
+
+        ansible-playbook -i hosts site.yml --check
 
 The stack can be deployed using the following command:
 
